@@ -3,9 +3,14 @@ import { Logger } from 'winston';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { UserValidation } from './user.validation.js';
 import * as bcrypt from 'bcrypt';
-import { RegisterUserRequest, UserResponse } from '../model/user.model.js';
+import {
+  LoginUserRequest,
+  RegisterUserRequest,
+  UserResponse,
+} from '../model/user.model.js';
 import { ValidationService } from '../common/validation.service.js';
 import { PrismaService } from '../common/prisma.service.js';
+import { v4 as uuid } from 'uuid';
 
 @Injectable()
 export class UserService {
@@ -16,7 +21,7 @@ export class UserService {
   ) {}
 
   async register(request: RegisterUserRequest): Promise<UserResponse> {
-    this.logger.info(`Register new user ${JSON.stringify(request)}`);
+    this.logger.info(`UserService.register(${JSON.stringify(request)})`);
 
     const registerRequest: RegisterUserRequest =
       this.validationService.validate(UserValidation.REGISTER, request);
@@ -40,6 +45,53 @@ export class UserService {
     return {
       username: user.username,
       name: user.name,
+    };
+  }
+
+  async login(request: LoginUserRequest): Promise<UserResponse> {
+    this.logger.info(`UserService.login(${JSON.stringify(request)})`);
+
+    const loginRequest: LoginUserRequest = this.validationService.validate(
+      UserValidation.LOGIN,
+      request,
+    );
+
+    let user = await this.prismaService.user.findUnique({
+      where: {
+        username: loginRequest.username,
+      },
+    });
+
+    if (!user) {
+      throw new HttpException('Username or password is wrong', 401);
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      loginRequest.password,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new HttpException('Username or password is wrong', 401);
+    }
+
+    user = await this.prismaService.user.update({
+      where: {
+        username: loginRequest.username,
+      },
+      data: {
+        token: uuid(),
+      },
+    });
+
+    if (!user.token) {
+      throw new HttpException('Token generation failed', 500);
+    }
+
+    return {
+      username: user.username,
+      name: user.name,
+      token: user.token,
     };
   }
 }

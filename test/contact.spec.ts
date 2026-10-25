@@ -108,6 +108,73 @@ describe('ContactController', () => {
     });
   });
 
+  describe('PUT /api/contacts/:contactId', () => {
+    beforeEach(async () => {
+      await testService.deleteContact();
+      await testService.deleteUser();
+      await testService.createUser();
+      await testService.createContact();
+    });
+
+    it('should be rejected if request invalid', async () => {
+      const contact = await testService.getContact();
+      const response = await request(app.getHttpServer())
+        .put(`/api/contacts/${contact.id}`)
+        .set('Authorization', 'test')
+        .send({
+          firstname: '',
+          lastname: '',
+          email: 'salah',
+          phone: '',
+        });
+
+      logger.info(response.body);
+
+      expect(response.status).toBe(400);
+      expect(response.body).toBeDefined();
+    });
+
+    it('should be rejected if contact is not found', async () => {
+      const contact = await testService.getContact();
+      const response = await request(app.getHttpServer())
+        .put(`/api/contacts/${contact.id + 1}`)
+        .set('Authorization', 'test')
+        .send({
+          firstname: 'test',
+          lastname: 'test',
+          email: 'test@example.com',
+          phone: '08123',
+        });
+
+      logger.info(response.body);
+
+      expect(response.status).toBe(404);
+      expect(response.body).toBeDefined();
+    });
+
+    it('should be able to update contact', async () => {
+      const contact = await testService.getContact();
+      const response = await request(app.getHttpServer())
+        .put(`/api/contacts/${contact.id}`)
+        .set('Authorization', 'test')
+        .send({
+          firstname: 'test updated',
+          lastname: 'test updated',
+          email: 'testupdated@example.com',
+          phone: '8888',
+        });
+
+      logger.info(response.body);
+
+      expect(response.status).toBe(200);
+      expect(response.body.data.id).toBeDefined();
+      expect(response.body.data.firstname).toBe('test updated');
+      expect(response.body.data.lastname).toBe('test updated');
+      expect(response.body.data.email).toBe('testupdated@example.com');
+      expect(response.body.data.phone).toBe('8888');
+    });
+  });
+
   afterEach(async () => {
     await app.close();
   });

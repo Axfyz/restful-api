@@ -37,7 +37,7 @@ export class ContactService {
     const contact = await this.prismaService.contact.create({
       data: {
         ...createRequest,
-        ...{ username: user.username },
+        username: user.username,
       },
     });
 

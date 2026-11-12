@@ -111,8 +111,10 @@ export class UserService {
       `UserService.update(${JSON.stringify(user)}, ${JSON.stringify(request)})`,
     );
 
-    const updateRequest: UpdateUserRequest =
-      await this.validationService.validate(UserValidation.UPDATE, request);
+    const updateRequest: UpdateUserRequest = this.validationService.validate(
+      UserValidation.UPDATE,
+      request,
+    );
 
     if (updateRequest.name) {
       user.name = updateRequest.name;

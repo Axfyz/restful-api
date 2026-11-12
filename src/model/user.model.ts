@@ -1,21 +1,21 @@
-export class RegisterUserRequest {
+export interface RegisterUserRequest {
   username: string;
   password: string;
   name: string;
 }
 
-export class UserResponse {
+export interface UserResponse {
   username: string;
   name: string;
   token?: string;
 }
 
-export class LoginUserRequest {
+export interface LoginUserRequest {
   username: string;
   password: string;
 }
 
-export class UpdateUserRequest {
+export interface UpdateUserRequest {
   name?: string;
   password?: string;
 }

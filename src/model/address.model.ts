@@ -1,4 +1,4 @@
-export class AddressResponse {
+export interface AddressResponse {
   id: number;
   street?: string;
   city?: string;
@@ -7,7 +7,7 @@ export class AddressResponse {
   postal_code: string;
 }
 
-export class CreateAddressRequest {
+export interface CreateAddressRequest {
   contact_id: number;
   street?: string;
   city?: string;
@@ -16,12 +16,12 @@ export class CreateAddressRequest {
   postal_code: string;
 }
 
-export class GetAddressRequest {
+export interface GetAddressRequest {
   contact_id: number;
   address_id: number;
 }
 
-export class UpdateAddressRequest {
+export interface UpdateAddressRequest {
   id: number;
   contact_id: number;
   street?: string;
@@ -31,7 +31,7 @@ export class UpdateAddressRequest {
   postal_code: string;
 }
 
-export class RemoveAddressRequest {
+export interface RemoveAddressRequest {
   contact_id: number;
   address_id: number;
 }

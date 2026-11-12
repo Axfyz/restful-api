@@ -1,4 +1,4 @@
-export class ContactResponse {
+export interface ContactResponse {
   id: number;
   firstname: string;
   lastname?: string;
@@ -6,14 +6,14 @@ export class ContactResponse {
   phone?: string;
 }
 
-export class CreateContactRequest {
+export interface CreateContactRequest {
   firstname: string;
   lastname?: string;
   email?: string;
   phone?: string;
 }
 
-export class UpdateContactRequest {
+export interface UpdateContactRequest {
   id: number;
   firstname: string;
   lastname?: string;
@@ -21,7 +21,7 @@ export class UpdateContactRequest {
   phone?: string;
 }
 
-export class SearchContactRequest {
+export interface SearchContactRequest {
   name?: string;
   email?: string;
   phone?: string;

@@ -1,0 +1,131 @@
+### Register User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+Accept: application/json
+
+{
+    "username": "fi",
+    "name": "testing",
+    "password": "rahasia"
+}
+
+### Login User
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "username": "fi",
+    "password": "rahasia123"
+}
+
+### Get User
+GET http://localhost:3000/api/users/current
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+### Logout User
+DELETE http://localhost:3000/api/users/current
+Accept: application/json
+Authorization: e70a655c-5d97-4ba7-8982-de2eda45c94f
+
+### Update User
+PATCH http://localhost:3000/api/users/current
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+{
+    # "name":"Testing"
+    "password": "rahasia123"
+}
+
+
+### Create Contact
+POST http://localhost:3000/api/contacts
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+{
+    "firstname":"Ini",
+    "lastname":"Budi",
+    "email":"budi@example.com",
+    "phone":"0898"
+}
+
+### Update Contact
+PUT http://localhost:3000/api/contacts/419
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+{
+    "firstname":"Itu",
+    "lastname":"Budi",
+    "email":"budi@example.com",
+    "phone":"0898"
+}
+
+### Get Contact
+GET http://localhost:3000/api/contacts/419
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+### Delete Contact
+DELETE http://localhost:3000/api/contacts/420
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+### Search Contact
+GET http://localhost:3000/api/contacts?phone=0898
+#size=1&page=2
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+
+### Create Address
+POST http://localhost:3000/api/contacts/419/addresses
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+{
+    "street": "street test",
+    "city": "city test",
+    "province": "province test",
+    "country": "country test",
+    "postal_code": "1111"
+}
+
+### Get Address
+GET http://localhost:3000/api/contacts/419/addresses/219
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+### List Get Address
+GET http://localhost:3000/api/contacts/419/addresses
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+### Update Address
+PUT http://localhost:3000/api/contacts/419/addresses/219
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab
+
+{
+    "street": "street test updated",
+    "city": "city test updated",
+    "province": "province test",
+    "country": "country test",
+    "postal_code": "1111"
+}
+
+### Delete Address
+DELETE  http://localhost:3000/api/contacts/419/addresses/220
+Content-Type: application/json
+Accept: application/json
+Authorization: d1927ce9-c8d9-4514-b2eb-2aeb363768ab

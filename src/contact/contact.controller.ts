@@ -14,7 +14,7 @@ import { ContactService } from './contact.service';
 import { Auth } from '../common/auth.decorator';
 import type { User } from '@prisma/client';
 import { WebResponse } from '../model/web.model';
-import {
+import type {
   ContactResponse,
   CreateContactRequest,
   SearchContactRequest,

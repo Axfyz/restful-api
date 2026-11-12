@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { WebResponse } from '../model/web.model';
-import {
+import type {
   AddressResponse,
   CreateAddressRequest,
   GetAddressRequest,

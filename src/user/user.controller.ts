@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service.js';
-import {
+import type {
   LoginUserRequest,
   RegisterUserRequest,
   UpdateUserRequest,
